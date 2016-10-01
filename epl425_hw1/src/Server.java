@@ -57,8 +57,6 @@ class clientThread extends Thread {
 	private BufferedReader is = null;
 	private PrintStream os = null;
 	private Socket clientSocket = null;
-	private  clientThread threads;
-	private int maxClientsCount;
 
 	public clientThread(Socket clientSocket) {
 		// this.id=id;
