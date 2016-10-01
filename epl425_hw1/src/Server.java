@@ -120,8 +120,7 @@ class clientThread extends Thread {
 			
 				 if (!line.startsWith("End")){
 					 Random rand = new Random();
-					// int myValue = rand.nextInt(1740800)+307200;
-					 int myValue=2;
+					 int myValue = rand.nextInt(870400)+153600;
 					 char c[]=new char[myValue];
 					 
 							os.println("Welcome " +line.substring(6, 8)+" "+String.copyValueOf(c)+" ");
