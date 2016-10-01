@@ -25,41 +25,17 @@ public class Server {
 
 		// The default port number.
 		int portNumber;
-		
-			portNumber = Integer.valueOf(args[0]).intValue();
-		
-
-		/*
-		 * Open a server socket on the portNumber (default 2222). Note that we
-		 * can not choose a port less than 1023 if we are not privileged users
-		 * (root).
-		 */
+		portNumber = Integer.valueOf(args[0]).intValue();
 		try {
 			serverSocket = new ServerSocket(portNumber);
 		} catch (IOException e) {
 			System.out.println(e);
 		}
-
-		/*
-		 * Create a client socket for each connection and pass it to a new
-		 * client thread.
-		 */
 		while (true) {
 			try {
 				clientSocket = serverSocket.accept();
 				int i = 0;
-				// for (i = 0; i < maxClientsCount; i++) {
-				// if (threads == null) {
 				 new clientThread(clientSocket ).start();
-				// break;
-				// }
-
-				//if (flag) {
-					PrintStream os = new PrintStream(clientSocket.getOutputStream());
-					//os.println("Server too busy. Try later.");
-					//os.close();
-					//clientSocket.close();
-				//}
 			} catch (IOException e) {
 				System.out.println(e);
 			}
@@ -94,25 +70,14 @@ class clientThread extends Thread {
 	}
 
 	public void run() {
-		int maxClientsCount = this.maxClientsCount;
-		// clientThread[] threads = this.threads;
+		
 
 		try {
-			/*
-			 * Create input and output streams for this client.
-			 */         
+			     
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
-			//os.println("Welcome"+id);
-			// String name = is.readLine().trim();
-			// os.println("Hello " + name
-			// + " to our chat room.\nTo leave enter /quit in a new line");
+	
 
-			if (threads != null && threads != this) {
-				// id++;
-				// threads[i].os.println("*** A new user " + name
-				// + " entered the chat room !!! ***");
-			}
 float start=System.nanoTime();
 float end;
 float dur;
@@ -135,7 +100,7 @@ int count=0;
 					 dur=end-start;
 					 dur=(float)(dur/1000000000.0);
 					 	double x=count/dur;
-					 	System.out.println("Throughput: "+x+" kbps");
+					 	System.out.println("Throughput: "+x);
 						clientSocket.close();
 						break;
 				 }
