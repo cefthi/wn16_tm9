@@ -9,10 +9,14 @@
 	import java.net.UnknownHostException;
 
 	public class Client implements Runnable {
- static int id=0;
+		static String host;
+		static int port;
+		static int id=0;
 		
-		public Client(int id){
+		public Client(int id,String host, int port){
 			this.id=id;
+			this.host=host;
+			this.port=port;
 		}
 	  // The client socket
 	  private static Socket clientSocket = null;
@@ -25,12 +29,12 @@
 	  private static BufferedReader inputLine = null;
 	  private static boolean closed = false;
 	  
-	  public static void create() {
+	  public  void create() {
 
 	    // The default port.
-	    int portNumber = 2222;
+	    int portNumber = port;
 	    // The default host.
-	    String host = "localhost";
+	    String host = this.host;
 	    
 	   // if (args.length < 2) {
 	      System.out
@@ -67,7 +71,7 @@
 	    	
 	      // mc[i++]=new   MultiThreadChatClient(id);
 		/* Create a thread to read from the server. */
-     new Thread(new   Client(id)).start();
+     new Thread(new   Client(id,host,port)).start();
       
 		//while (!closed) {
 			//i++;

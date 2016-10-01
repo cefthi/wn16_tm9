@@ -24,13 +24,10 @@ public class Server {
 	public static void main(String args[]) {
 
 		// The default port number.
-		int portNumber = 2222;
-		if (args.length < 1) {
-			System.out.println(
-					"Usage: java MultiThreadChatServer <portNumber>\n" + "Now using port number=" + portNumber);
-		} else {
+		int portNumber;
+		
 			portNumber = Integer.valueOf(args[0]).intValue();
-		}
+		
 
 		/*
 		 * Open a server socket on the portNumber (default 2222). Note that we
