@@ -72,7 +72,8 @@
 		//while (!closed) {
 			//i++;
 			 for (int j=0;j<300;j++)
-		  os.println("Hello "+clientSocket.getPort()+" "+clientSocket.getInetAddress());
+		     os.println("Hello "+id+" "+clientSocket.getPort()+" "+clientSocket.getInetAddress());
+			 os.println("End");
 		  //if (i==300)
 			 // break;
       // }

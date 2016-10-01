@@ -3,6 +3,7 @@ import java.io.PrintStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Random;
 import java.net.ServerSocket;
 
 /*
@@ -105,7 +106,7 @@ class clientThread extends Thread {
 			 */
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
-			os.println("Welcome"+id);
+			//os.println("Welcome"+id);
 			// String name = is.readLine().trim();
 			// os.println("Hello " + name
 			// + " to our chat room.\nTo leave enter /quit in a new line");
@@ -115,30 +116,26 @@ class clientThread extends Thread {
 				// threads[i].os.println("*** A new user " + name
 				// + " entered the chat room !!! ***");
 			}
-int i=0;
+
 			while (true) {
 			
 				 String line = is.readLine();
-				// if (line.startsWith("/quit")) {
-				// break;
-				// }
-				// String line = is.readLine();
-
 				
-					//for (int j = 0; j < 300; j++) {
-						//if (line.startsWith("Hello")){
-							os.println("Welcome " +line);
-							
+				 if (!line.startsWith("End")){
+					 Random rand = new Random();
+					 int myValue = rand.nextInt(29000000)+200000;
+					 char c[]=new char[myValue];
+					 
+							os.println("Welcome " +line.substring(6, 8)+" "+c.length);
+				 }
+				 else{
+					 os.println("*** Bye");
+						
+						clientSocket.close();break;
+				 }
 							//os.flush();
 				
-						//}
-						i++;
-						if(line.startsWith("End")){
-							os.println("*** Bye");
-							
-							clientSocket.close();break;}
-					//flag=true;
-
+					
 				}
 
 			
