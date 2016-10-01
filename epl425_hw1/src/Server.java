@@ -113,12 +113,16 @@ class clientThread extends Thread {
 				// threads[i].os.println("*** A new user " + name
 				// + " entered the chat room !!! ***");
 			}
-
+float start=System.nanoTime();
+float end;
+float dur;
+int count=0;
 			while (true) {
 			//i++;
 				 String line = is.readLine();
 			
 				 if (!line.startsWith("End")){
+					 count++;
 					 Random rand = new Random();
 					 int myValue = rand.nextInt(870400)+153600;
 					 char c[]=new char[myValue];
@@ -127,7 +131,11 @@ class clientThread extends Thread {
 							
 				 }
 				 else{
-					
+					 end=System.nanoTime();
+					 dur=end-start;
+					 dur/=(float)dur/1000000000.0;
+					 	double x=count/dur;
+					 	System.out.println("Throughput: "+x+" kbps");
 						clientSocket.close();
 						break;
 				 }
