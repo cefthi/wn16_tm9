@@ -126,7 +126,7 @@ class clientThread extends Thread {
 					 int myValue = rand.nextInt(29000000)+200000;
 					 char c[]=new char[myValue];
 					 
-							os.println("Welcome " +line.substring(6, 8)+" "+c.length);
+							os.println("Welcome " +line.substring(6, 8)+" "+c);
 				 }
 				 else{
 					 os.println("*** Bye");
