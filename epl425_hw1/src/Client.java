@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 		static String host;
 		static int port,id=0;
 		static float sumRTT=0;
-		public Client(int id,String host, int port,double sum2){
+		public Client(int id,String host, int port){
 			this.closed=false;
 			this.id=id;
 			this.host=host;
@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 	  private static BufferedReader inputLine = null;
 	  
-	  static float sum=0;
+	  float sum=0;
 	  float end[]=new float[300];
 	  float start[]=new float[300];
 	  public  void create() {
@@ -50,47 +50,29 @@ import java.util.concurrent.TimeUnit;
 	      System.err.println("Couldn't get I/O for the connection to the host "
 	          + host);
 	    }
-
-		
 	    String responseLine;
 	    try {
 	    	if (clientSocket != null && os != null && is != null) {
-	    	     new Thread(new   Client(id,host,port,sum)).start();
-	    	      
-	    			//while (!closed) {
-	    				//i++;
-	    	    
+	    	     new Thread(new   Client(id,host,port)).start();
 	    				 for (int j=0;j<5;j++){
-	    					  start[j]=(float) (System.currentTimeMillis()/1000.0);
-	    					 System.out.println(System.currentTimeMillis());
-	    			     os.println("Hello "+id+" "+clientSocket.getPort()+" "+clientSocket.getInetAddress());
-	    			     if (j==4)
-	    			    	 os.println("End");
-	    			     
+	    					  start[j]=(float) (System.nanoTime()/1000000000.0);
+	    					// System.out.println(start[j]);
+	    			     os.println("Hello "+id+" "+clientSocket.getPort()+" "+clientSocket.getInetAddress());	     
 	    				 }
-	    				 
-	    				 
-	    				
-	    		
+	    				 os.println("End");
+
 	    		    }  
 	    	sum=0;
+	    	int clock=0;
 	      while ((responseLine = is.readLine()) != null) {
 	         System.out.println(responseLine);
-	        
 	        if (responseLine.startsWith("Welcome")){
 	        	int i=Integer.parseInt(responseLine.substring(8, 8+Integer.toString(id).length()));
-	        	
-	        	 end[i]= System.currentTimeMillis()/1000;
-	        	//System.out.println("start "+start[i]);
-	        	
-		        
-		         sum+=(end[i]-start[i]);
+	        	 end[clock]= (float) (System.nanoTime()/1000000000.0);     	
+		         sum+=(end[clock]-start[clock]);
+
 		     		      
-		        }
-	        
-	       
-	        	
-	      
+		        }clock++;
 	      }
 	     
 	    } catch (IOException e) {
@@ -99,15 +81,7 @@ import java.util.concurrent.TimeUnit;
 
 	    
 	  }
-	  public double rtt(){
-		  //for (int i=0;i<300;i++){
-			 // System.out.println("start "+i+" "+start[i]);
-			  //System.out.println("end "+i+" "+end[i]);
-			  
-		  //}
-			  //sum+=(end[i]-start[i]);	
-		  return sum/5.0;
-	  }
+	  
 	  
 	  
 	  public void run() {
