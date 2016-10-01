@@ -117,19 +117,21 @@ class clientThread extends Thread {
 			while (true) {
 			
 				 String line = is.readLine();
+			
 				 if (!line.startsWith("End")){
 					 Random rand = new Random();
-					 //int myValue = rand.nextInt(29000000)+200000;
-					 //char c[]=new char[myValue];
+					 int myValue = rand.nextInt(29000000)+200000;
+					 char c[]=new char[myValue];
 					 
 							os.println("Welcome " +line.substring(6, 8));
+							
 				 }
 				 else{
 					 os.println("*** Bye");
 						
 						clientSocket.close();break;
 				 }
-							os.flush();
+							//os.flush();
 				
 					
 				}
