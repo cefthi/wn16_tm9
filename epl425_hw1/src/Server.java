@@ -100,7 +100,7 @@ class clientThread extends Thread {
 		try {
 			/*
 			 * Create input and output streams for this client.
-			 */
+			 */         
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
 			//os.println("Welcome"+id);
@@ -115,21 +115,21 @@ class clientThread extends Thread {
 			}
 
 			while (true) {
-			
+			//i++;
 				 String line = is.readLine();
 			
 				 if (!line.startsWith("End")){
 					 Random rand = new Random();
-					 int myValue = rand.nextInt(29000000)+200000;
+					 int myValue = rand.nextInt(1740800)+307200;
 					 char c[]=new char[myValue];
 					 
-							os.println("Welcome " +line.substring(6, 8));
+							os.println("Welcome " +line.substring(6, 8)+" "+String.copyValueOf(c)+" ");
 							
 				 }
 				 else{
-					 os.println("*** Bye");
-						
-						clientSocket.close();break;
+					
+						clientSocket.close();
+						break;
 				 }
 							//os.flush();
 				
