@@ -133,7 +133,7 @@ int count=0;
 				 else{
 					 end=System.nanoTime();
 					 dur=end-start;
-					 dur/=(float)(dur/1000000000.0);
+					 dur=(float)(dur/1000000000.0);
 					 	double x=count/dur;
 					 	System.out.println("Throughput: "+x+" kbps");
 						clientSocket.close();
