@@ -62,6 +62,12 @@ class clientThread extends Thread {
 		// this.id=id;
 
 		this.clientSocket = clientSocket;
+		try {
+			PrintStream os = new PrintStream(clientSocket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//this.threads = threads;
 		// maxClientsCount = threads.length;
 
