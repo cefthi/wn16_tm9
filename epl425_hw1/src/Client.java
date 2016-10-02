@@ -2,6 +2,8 @@
 
 import java.io.DataInputStream;
 import java.io.PrintStream;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -48,6 +50,11 @@ public class Client implements Runnable {
 	 float end[]=new float[r];
 	
 	public  void create() {
+		
+		
+		
+		
+		
 		int portNumber = port;
 		String host = this.host;
 		System.out.println("Now using host=" + host + ", portNumber=" + portNumber);
@@ -63,10 +70,14 @@ public class Client implements Runnable {
 					+ host);
 		}
 
-
+	
 		if (clientSocket != null && os != null && is != null) {
 			Client c;
-			new Thread(c=new   Client(r,n,id,host,port,start,is,os,inputLine,clientSocket)).start();
+			 new Thread(c=new   Client(r,n,id,host,port,start,is,os,inputLine,clientSocket)).start();
+			
+			
+			
+			
 			for (int j=0;j<r;j++){
 				c.start[j]=System.nanoTime();
 				os.println("Hello "+id+" "+clientSocket.getPort()+" "+clientSocket.getInetAddress());	     

@@ -5,7 +5,7 @@ public class Main {
 		
 		float sum = 0;
 		float av;
-		int n=1;
+		int n=5;
 		int r=100;
 	float start[] = null;
 		Client t;

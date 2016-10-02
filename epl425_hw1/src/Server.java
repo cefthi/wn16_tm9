@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.PrintStream;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
@@ -53,11 +55,11 @@ public class Server {
  */
 class clientThread extends Thread {
 	
-	private int id = 0;
+	private int id = 0, i=0;
 	private BufferedReader is = null;
 	private PrintStream os = null;
 	private Socket clientSocket = null;
-
+	long cpuTime[]=new long[10];
 	public clientThread(Socket clientSocket) {
 		// this.id=id;
 
@@ -80,14 +82,14 @@ class clientThread extends Thread {
 			     
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
-	
-
+			ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
+			
 float start=System.nanoTime();
 float end;
 float dur;
 int count=0;
 			while (true) {
-			//i++;
+			
 				 String line = is.readLine();
 			
 				 if (!line.startsWith("End")){
@@ -100,11 +102,25 @@ int count=0;
 							
 				 }
 				 else{
+					  cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
+					 int sum=0;
+					 if (i==4){
+					 for (int j=0;j<5;j++)
+					 {
+						 System.out.println("CPUTime: "+j+" "+cpuTime[j]);
+					 sum+=cpuTime[j];
+					 }
+					 System.out.println("Average cpu: "+ sum/10.0);
+					 
+					 }
+					 
+					 i++;
 					 end=System.nanoTime();
 					 dur=end-start;
 					 dur=(float)(dur/1000000000.0);
 					 	double x=count/dur;
 					 	System.out.println("Throughput: "+x);
+					 	
 						clientSocket.close();
 						break;
 				 }
