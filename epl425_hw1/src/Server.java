@@ -56,7 +56,8 @@ public class Server {
  */
 class clientThread extends Thread {
 	 static long cpuTime[]=new long[5];
-	private int id = 0, i=0;
+	private int id = 0;
+	private static int i=0;
 	private BufferedReader is = null;
 	private PrintStream os = null;
 	private Socket clientSocket = null;
