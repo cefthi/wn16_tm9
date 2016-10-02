@@ -57,8 +57,9 @@ public class Server {
  */
 class clientThread extends Thread {
 
-	private static int n=2;
-	private static int r=20;
+
+	private static int n=20;
+	private static int r=300;
 	private static int i=0;
 	static double cpuTime[]=new double[r];
 	static long memory[]=new long[r];
@@ -121,9 +122,10 @@ class clientThread extends Thread {
 			
 	
 					cpuTime[i] =((com.sun.management.OperatingSystemMXBean) operatingSystemMXBean).getSystemCpuLoad();
+					//System.out.println("cpuTime"+cpuTime[i]);
 					end[i]=System.nanoTime();
 					System.out.println("i  "+i);
-					int sum=0;
+					double sum=0;
 					int summem=0;
 					int sumthr=0;
 					int sumco=0;
@@ -135,12 +137,15 @@ class clientThread extends Thread {
 						for (int j=0;j<n;j++)
 						{
 							summem+=memory[j];
+							//System.out.println("cpu ii ii i:  "+cpuTime[j]);
 							sum+=cpuTime[j];
+							//System.out.println("summmm"+sum);
 							sumthr+=(end[j]-start[j]);
 							sumco+=count[j];
 						}
 						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
-						System.out.println("Average cpu: "+ (sum/(r*1.0)));
+						double cpuav=(1.0*sum/(r*1.0));
+						System.out.println("Average cpu: "+cpuav);
 						System.out.println("Throughput: "+(sumco/(sumthr/1000000000.0)));
 
 
