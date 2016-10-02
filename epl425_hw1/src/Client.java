@@ -92,7 +92,8 @@ public class Client implements Runnable {
 				System.out.println(responseLine);
 				if (responseLine.startsWith("Welcome")){
 					i=Integer.parseInt(responseLine.substring(8, 8+Integer.toString(id).length()));
-					this.end[clock]= System.nanoTime();     	
+					this.end[clock]= System.nanoTime();     
+					System.out.println((long)(this.end[clock]-this.start[clock]));
 					sum+=(float) ((this.end[clock]-this.start[clock])/1000000000.0);
 					clock++;
 				}clock2++;
