@@ -58,7 +58,7 @@ public class Server {
 class clientThread extends Thread {
 
 
-	private static int n=20;
+	private static int n=5;
 	private static int r=300;
 	private static int i=0;
 	static double cpuTime[]=new double[r];
