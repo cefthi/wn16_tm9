@@ -12,6 +12,7 @@ import java.net.ServerSocket;
  * A chat server that delivers public and private messages.
  */
 public class Server {
+	
 	public static boolean flag=false;
 	// The server socket.
 	private static ServerSocket serverSocket = null;
@@ -54,12 +55,12 @@ public class Server {
  * all the clients about that and terminates.
  */
 class clientThread extends Thread {
-	
+	 static long cpuTime[]=new long[5];
 	private int id = 0, i=0;
 	private BufferedReader is = null;
 	private PrintStream os = null;
 	private Socket clientSocket = null;
-	long cpuTime[]=new long[10];
+	
 	public clientThread(Socket clientSocket) {
 		// this.id=id;
 
