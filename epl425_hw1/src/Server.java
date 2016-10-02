@@ -56,7 +56,10 @@ public class Server {
  */
 class clientThread extends Thread {
 	static long cpuTime[]=new long[5];
+	static long memory[]=new long[5];
 	private int id = 0;
+	private static int n=3;
+	private static int r=5;
 	private static int i=0;
 	private BufferedReader is = null;
 	private PrintStream os = null;
@@ -104,17 +107,22 @@ class clientThread extends Thread {
 
 				}
 				else{
+					Runtime rr=Runtime.getRuntime();
+					rr.gc();
+					 memory[i]=(rr.totalMemory()-rr.freeMemory());
 					cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
 					System.out.println("i  "+i);
-					System.out.println("cppp "+(cpuTime[i]/1000000000.0));
+				
 					int sum=0;
-					if (i==2){
-						for (int j=0;j<5;j++)
+					int summem=0;
+					if (i==(n-1)){
+						for (int j=0;j<n;j++)
 						{
-							System.out.println("CPUTime: "+j+" "+cpuTime[j]);
+							summem+=memory[i];
 							sum+=cpuTime[j];
 						}
-						System.out.println("Average cpu: "+ sum/(1000000000*10.0));
+						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
+						System.out.println("Average cpu: "+ sum/(1000000000.0*r));
 
 					}
 
