@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.ThreadMXBean;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -56,8 +57,8 @@ public class Server {
  */
 class clientThread extends Thread {
 
-	private static int n=3;
-	private static int r=5;
+	private static int n=2;
+	private static int r=20;
 	private static int i=0;
 	static long cpuTime[]=new long[r];
 	static long memory[]=new long[r];
@@ -67,8 +68,10 @@ class clientThread extends Thread {
 	private BufferedReader is = null;
 	private PrintStream os = null;
 	private Socket clientSocket = null;
-
+	
+	ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
 	public clientThread(Socket clientSocket) {
+		
 		// this.id=id;
 
 		this.clientSocket = clientSocket;
@@ -87,14 +90,15 @@ class clientThread extends Thread {
 
 
 		try {
-
+			@SuppressWarnings("restriction")
+			OperatingSystemMXBean operatingSystemMXBean = (com.sun.management.OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
-			ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
 
-			 start[i]=System.nanoTime();
+
+			start[i]=System.nanoTime();
 			float dur;
-			
+
 			while (true) {
 
 				String line = is.readLine();
@@ -111,7 +115,12 @@ class clientThread extends Thread {
 				else{
 					Runtime rr=Runtime.getRuntime();
 					rr.gc();
-					 memory[i]=(rr.totalMemory()-rr.freeMemory());
+					memory[i]=(rr.totalMemory()-rr.freeMemory());
+
+					
+					double time=((com.sun.management.OperatingSystemMXBean) operatingSystemMXBean).getSystemCpuLoad();
+					System.out.println("TIMEEEE "+time);
+	
 					cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
 					end[i]=System.nanoTime();
 					System.out.println("i  "+i);
@@ -119,10 +128,10 @@ class clientThread extends Thread {
 					int summem=0;
 					int sumthr=0;
 					int sumco=0;
-					
-					
-				
-					
+
+
+
+
 					if (i==(n-1)){
 						for (int j=0;j<n;j++)
 						{
@@ -134,12 +143,12 @@ class clientThread extends Thread {
 						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
 						System.out.println("Average cpu: "+ ((sum/1000000000.0)/r));
 						System.out.println("Throughput: "+(sumco/(sumthr/1000000000.0)));
-					
-					
+
+
 					}
-					
+
 					i++;
-					
+
 
 					clientSocket.close();
 					break;
