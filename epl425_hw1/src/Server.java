@@ -134,7 +134,7 @@ class clientThread extends Thread {
 						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
 						System.out.println("Average cpu: "+ sum/(1000000000.0*r));
 						
-						System.out.println("Throughput: "+(sumthr/(sumco*1.0)));
+						System.out.println("Throughput: "+((sumthr/1000000000.0)/(sumco*1.0)));
 					
 					
 					}
