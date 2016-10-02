@@ -60,7 +60,7 @@ class clientThread extends Thread {
 	private static int n=2;
 	private static int r=20;
 	private static int i=0;
-	static long cpuTime[]=new long[r];
+	static double cpuTime[]=new double[r];
 	static long memory[]=new long[r];
 	static float start[]=new float[r];
 	static float end[]=new float[r];
@@ -118,10 +118,9 @@ class clientThread extends Thread {
 					memory[i]=(rr.totalMemory()-rr.freeMemory());
 
 					
-					double time=((com.sun.management.OperatingSystemMXBean) operatingSystemMXBean).getSystemCpuLoad();
-					System.out.println("TIMEEEE "+time);
+			
 	
-					cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
+					cpuTime[i] =((com.sun.management.OperatingSystemMXBean) operatingSystemMXBean).getSystemCpuLoad();
 					end[i]=System.nanoTime();
 					System.out.println("i  "+i);
 					int sum=0;
@@ -141,7 +140,7 @@ class clientThread extends Thread {
 							sumco+=count[j];
 						}
 						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
-						System.out.println("Average cpu: "+ ((sum/1000000000.0)/r));
+						System.out.println("Average cpu: "+ (sum/r));
 						System.out.println("Throughput: "+(sumco/(sumthr/1000000000.0)));
 
 
