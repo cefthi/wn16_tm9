@@ -140,13 +140,13 @@ class clientThread extends Thread {
 							//System.out.println("cpu ii ii i:  "+cpuTime[j]);
 							sum+=cpuTime[j];
 							//System.out.println("summmm"+sum);
-							sumthr+=(end[j]-start[j]);
+							sumthr+=((end[j]-start[j])/1000000000.0);
 							sumco+=count[j];
 						}
 						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
 						double cpuav=(1.0*sum/(r*1.0));
 						System.out.println("Average cpu: "+cpuav);
-						System.out.println("Throughput: "+(sumco/(sumthr/1000000000.0)));
+						System.out.println("Throughput: "+(sumco/(1.0*r*sumthr)));
 
 
 					}
