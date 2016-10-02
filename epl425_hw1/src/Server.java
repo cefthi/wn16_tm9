@@ -118,7 +118,7 @@ class clientThread extends Thread {
 					if (i==(n-1)){
 						for (int j=0;j<n;j++)
 						{
-							summem+=memory[i];
+							summem+=memory[j];
 							sum+=cpuTime[j];
 						}
 						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
