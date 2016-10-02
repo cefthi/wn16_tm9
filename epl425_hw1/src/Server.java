@@ -105,6 +105,7 @@ class clientThread extends Thread {
 				}
 				else{
 					cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
+					System.out.println("cppp "+(cpuTime[i]/1000000000.0));
 					int sum=0;
 					if (i==4){
 						for (int j=0;j<5;j++)
