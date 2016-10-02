@@ -9,25 +9,14 @@ import java.net.Socket;
 import java.util.Random;
 import java.net.ServerSocket;
 
-/*
- * A chat server that delivers public and private messages.
- */
 public class Server {
 
 	public static boolean flag=false;
-	// The server socket.
 	private static ServerSocket serverSocket = null;
-	// The client socket.
+
 	private static Socket clientSocket = null;
-
-	// This chat server can accept up to maxClientsCount clients' connections.
-	// private static final int maxClientsCount = 10;
-	// private static final clientThread[] threads = new
-	// clientThread[maxClientsCount];
-
 	public static void main(String args[]) {
 
-		// The default port number.
 		int portNumber;
 		portNumber = Integer.valueOf(args[0]).intValue();
 		try {
@@ -47,18 +36,11 @@ public class Server {
 	}
 }
 
-/*
- * The chat client thread. This client thread opens the input and the output
- * streams for a particular client, ask the client's name, informs all the
- * clients connected to the server about the fact that a new client has joined
- * the chat room, and as long as it receive data, echos that data back to all
- * other clients. When a client leaves the chat room this thread informs also
- * all the clients about that and terminates.
- */
+
 class clientThread extends Thread {
 
 
-	private static int n=5;
+	private static int n=10;
 	private static int r=300;
 	private static int i=0;
 	static double cpuTime[]=new double[r];
@@ -79,24 +61,16 @@ class clientThread extends Thread {
 		try {
 			PrintStream os = new PrintStream(clientSocket.getOutputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//this.threads = threads;
-		// maxClientsCount = threads.length;
-
+		
 	}
-
 	public void run() {
-
-
 		try {
 			@SuppressWarnings("restriction")
 			OperatingSystemMXBean operatingSystemMXBean = (com.sun.management.OperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean();
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
-
-
 			start[i]=System.nanoTime();
 			float dur;
 
@@ -117,29 +91,18 @@ class clientThread extends Thread {
 					Runtime rr=Runtime.getRuntime();
 					rr.gc();
 					memory[i]=(rr.totalMemory()-rr.freeMemory());
-
-					
-			
-	
 					cpuTime[i] =((com.sun.management.OperatingSystemMXBean) operatingSystemMXBean).getSystemCpuLoad();
-					//System.out.println("cpuTime"+cpuTime[i]);
 					end[i]=System.nanoTime();
 					System.out.println("i  "+i);
 					double sum=0;
 					int summem=0;
 					float sumthr=0;
 					int sumco=0;
-
-
-
-
 					if (i==(n-1)){
 						for (int j=0;j<n;j++)
 						{
 							summem+=memory[j];
-							//System.out.println("cpu ii ii i:  "+cpuTime[j]);
 							sum+=cpuTime[j];
-							//System.out.println("summmm"+sum);
 							sumthr+=((end[j]-start[j])/1000000000.0);
 							sumco+=count[j];
 						}
@@ -147,8 +110,6 @@ class clientThread extends Thread {
 						double cpuav=(1.0*sum/(r*1.0));
 						System.out.println("Average cpu: "+cpuav);
 						System.out.println("Throughput: "+(1.0*sumco/(1.0*sumthr)));
-
-
 					}
 
 					i++;
@@ -157,12 +118,7 @@ class clientThread extends Thread {
 					clientSocket.close();
 					break;
 				}
-				//os.flush();
-
-
 			}
-
-
 		} catch (IOException e) {
 		}
 	}

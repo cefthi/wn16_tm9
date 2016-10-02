@@ -35,49 +35,33 @@ public class Client implements Runnable {
 		this.id=id;
 		this.host=host;
 		this.port=port;
-		//this.sumRTT=sum;
+
 	}
 	private  Socket clientSocket = null;
-
-	// The output stream
 	private  PrintStream os = null;
-	// The input stream
 	private  BufferedReader  is = null;
-
 	private  BufferedReader inputLine = null;
-
 	float sum=0;
 	 float end[]=new float[r];
 	
 	public  void create() {
-		
-		
-		
-		
-		
 		int portNumber = port;
 		String host = this.host;
-		System.out.println("Now using host=" + host + ", portNumber=" + portNumber);
+		System.out.println("Trying to connect to=" + host + ", portNumber=" + portNumber);
 		try {
 			clientSocket = new Socket(host, portNumber);
 			inputLine = new BufferedReader(new InputStreamReader(System.in));
 			os = new PrintStream(clientSocket.getOutputStream());
 			is = new BufferedReader (new InputStreamReader(clientSocket.getInputStream()));
 		} catch (UnknownHostException e) {
-			System.err.println("Don't know about host " + host);
+			System.err.println("Host doesnt work " + host);
 		} catch (IOException e) {
-			System.err.println("Couldn't get I/O for the connection to the host "
-					+ host);
+			System.err.println("Input output error "+ host);
 		}
 
-	
 		if (clientSocket != null && os != null && is != null) {
 			Client c;
 			 new Thread(c=new   Client(r,n,id,host,port,start,is,os,inputLine,clientSocket)).start();
-			
-			
-			
-			
 			for (int j=0;j<r;j++){
 				c.start[j]=System.nanoTime();
 				os.println("Hello "+id+" "+clientSocket.getPort()+" "+clientSocket.getInetAddress());	     
@@ -90,9 +74,6 @@ public class Client implements Runnable {
 
 
 	}
-
-
-
 	public void run() {
 		int i=0;
 		int clock=0;
@@ -104,13 +85,11 @@ public class Client implements Runnable {
 				if (responseLine.startsWith("Welcome")){
 					i=Integer.parseInt(responseLine.substring(8, 8+Integer.toString(id).length()));
 					this.end[clock]= System.nanoTime();     
-					System.out.println((long)(this.end[clock]-this.start[clock]));
 					sum+=(float) ((this.end[clock]-this.start[clock])/1000000000.0);
 					clock++;
 				}clock2++;
 			}
 			sumRTT+=sum;
-			//System.out.println("clock2 : "+clock2);
 			if(clock2==(n*r)){
 				System.out.println("AverageRTT "+i+" : "+(sumRTT/(n*r)));
 				}
