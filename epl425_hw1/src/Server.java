@@ -55,12 +55,15 @@ public class Server {
  * all the clients about that and terminates.
  */
 class clientThread extends Thread {
-	static long cpuTime[]=new long[5];
-	static long memory[]=new long[5];
-	private int id = 0;
+
 	private static int n=3;
 	private static int r=5;
 	private static int i=0;
+	static long cpuTime[]=new long[r];
+	static long memory[]=new long[r];
+	static float start[]=new float[r];
+	static float end[]=new float[r];
+	static float count[]=new float[r];
 	private BufferedReader is = null;
 	private PrintStream os = null;
 	private Socket clientSocket = null;
@@ -89,16 +92,15 @@ class clientThread extends Thread {
 			os = new PrintStream(clientSocket.getOutputStream());
 			ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
 
-			float start=System.nanoTime();
-			float end;
+			 start[i]=System.nanoTime();
 			float dur;
-			int count=0;
+			
 			while (true) {
 
 				String line = is.readLine();
 
 				if (!line.startsWith("End")){
-					count++;
+					count[i]++;
 					Random rand = new Random();
 					int myValue = rand.nextInt(870400)+153600;
 					char c[]=new char[myValue];
@@ -111,27 +113,34 @@ class clientThread extends Thread {
 					rr.gc();
 					 memory[i]=(rr.totalMemory()-rr.freeMemory());
 					cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
+					end[i]=System.nanoTime();
 					System.out.println("i  "+i);
-				
 					int sum=0;
 					int summem=0;
+					int sumthr=0;
+					int sumco=0;
+					
+					
+				
+					
 					if (i==(n-1)){
 						for (int j=0;j<n;j++)
 						{
 							summem+=memory[j];
 							sum+=cpuTime[j];
+							sumthr+=(end[j]-start[j]);
+							sumco+=count[j];
 						}
 						System.out.println("Average memory:"+ (summem/1024.0)+" Kbps");
 						System.out.println("Average cpu: "+ sum/(1000000000.0*r));
-
+						
+						System.out.println("Throughput: "+(sumthr/(sumco*1.0)));
+					
+					
 					}
-
+					
 					i++;
-					end=System.nanoTime();
-					dur=end-start;
-					dur=(float)(dur/1000000000.0);
-					double x=count/dur;
-					System.out.println("Throughput: "+x);
+					
 
 					clientSocket.close();
 					break;
