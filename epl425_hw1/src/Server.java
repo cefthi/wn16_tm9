@@ -12,7 +12,7 @@ import java.net.ServerSocket;
  * A chat server that delivers public and private messages.
  */
 public class Server {
-	
+
 	public static boolean flag=false;
 	// The server socket.
 	private static ServerSocket serverSocket = null;
@@ -38,7 +38,7 @@ public class Server {
 			try {
 				clientSocket = serverSocket.accept();
 				int i = 0;
-				 new clientThread(clientSocket ).start();
+				new clientThread(clientSocket ).start();
 			} catch (IOException e) {
 				System.out.println(e);
 			}
@@ -55,13 +55,13 @@ public class Server {
  * all the clients about that and terminates.
  */
 class clientThread extends Thread {
-	 static long cpuTime[]=new long[5];
+	static long cpuTime[]=new long[5];
 	private int id = 0;
 	private static int i=0;
 	private BufferedReader is = null;
 	private PrintStream os = null;
 	private Socket clientSocket = null;
-	
+
 	public clientThread(Socket clientSocket) {
 		// this.id=id;
 
@@ -78,60 +78,60 @@ class clientThread extends Thread {
 	}
 
 	public void run() {
-		
+
 
 		try {
-			     
+
 			is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			os = new PrintStream(clientSocket.getOutputStream());
 			ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
-			
-float start=System.nanoTime();
-float end;
-float dur;
-int count=0;
-			while (true) {
-			
-				 String line = is.readLine();
-			
-				 if (!line.startsWith("End")){
-					 count++;
-					 Random rand = new Random();
-					 int myValue = rand.nextInt(870400)+153600;
-					 char c[]=new char[myValue];
-					 
-							os.println("Welcome " +line.substring(6, 8)+" "+String.copyValueOf(c)+" ");
-							
-				 }
-				 else{
-					  cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
-					 int sum=0;
-					 if (i==4){
-					 for (int j=0;j<5;j++)
-					 {
-						 System.out.println("CPUTime: "+j+" "+cpuTime[j]);
-					 sum+=cpuTime[j];
-					 }
-					 System.out.println("Average cpu: "+ sum/10.0);
-					 
-					 }
-					 
-					 i++;
-					 end=System.nanoTime();
-					 dur=end-start;
-					 dur=(float)(dur/1000000000.0);
-					 	double x=count/dur;
-					 	System.out.println("Throughput: "+x);
-					 	
-						clientSocket.close();
-						break;
-				 }
-							//os.flush();
-				
-					
-				}
 
-			
+			float start=System.nanoTime();
+			float end;
+			float dur;
+			int count=0;
+			while (true) {
+
+				String line = is.readLine();
+
+				if (!line.startsWith("End")){
+					count++;
+					Random rand = new Random();
+					int myValue = rand.nextInt(870400)+153600;
+					char c[]=new char[myValue];
+
+					os.println("Welcome " +line.substring(6, 8)+" "+String.copyValueOf(c)+" ");
+
+				}
+				else{
+					cpuTime[i] = tmxb.getThreadCpuTime(this.getId());
+					int sum=0;
+					if (i==4){
+						for (int j=0;j<5;j++)
+						{
+							System.out.println("CPUTime: "+j+" "+cpuTime[j]);
+							sum+=cpuTime[j];
+						}
+						System.out.println("Average cpu: "+ sum/(1000000000*10.0));
+
+					}
+
+					i++;
+					end=System.nanoTime();
+					dur=end-start;
+					dur=(float)(dur/1000000000.0);
+					double x=count/dur;
+					System.out.println("Throughput: "+x);
+
+					clientSocket.close();
+					break;
+				}
+				//os.flush();
+
+
+			}
+
+
 		} catch (IOException e) {
 		}
 	}
