@@ -1,0 +1,64 @@
+h1,h2,h3{
+   font-family:"Lucida Sans Unicode",Helvetica,Arial,sans-serif;
+ text-decoration: underline;
+}
+
+h1{
+  color:#A4A400;
+  background-color:#F0F0F0;
+  text-align:center;
+  font-size: 22pt;
+} 
+body{
+  color:#404040;
+  font-family:Georgia,Garamond;
+}
+a{color:#A4A400;}
+h2{
+  color:#A4A400;
+ font-size-adjust:18pt left;
+  background-color:#F0F0F0;
+  text-align:left;
+}
+.he{
+  background-color:yellow;
+  text-justify:center;
+  text-align:justify;
+  
+}
+tooltip {
+    position: relative ;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+  margin-left:50px;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+  content:clear;
+    visibility: visible;
+}
+lv:hover:after {
+  content:clear;
+  content:'Tablesppon';
+}
+
+li#eee{
+  width:50%;
+  margin:0 auto;
+  background-color:lightyellow;
+  list-style:none;
+}
