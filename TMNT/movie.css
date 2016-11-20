@@ -100,13 +100,10 @@ div.personalquote {
     margin-top: 10px;
     margin-bottom: 20px;
 }
-#ee1{  position: fixed;
-    background-image: url("images/b.jpg");
-    background-repeat: repeat-x;
-    bottom:0px;
-    right:15%;
-  opacity: 0.5;
-  z-index:-1
+#ee1{
+  position:fixed;
+  right: 15%;
+  bottom: 0px;
 }
 #w3ccheck {
   position: fixed;

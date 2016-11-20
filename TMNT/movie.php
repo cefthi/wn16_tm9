@@ -83,12 +83,14 @@ $r=$r."</div>";
                 </div>  
             </div> 
             
-      
-       
+      <br><br>
+          <br><br>
 
         <div id="w3ccheck">
             <a href="http://validator.w3.org/check/referer"><img src="images/w3c-html.png" alt="Valid HTML5"></a> <br>
             <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="images/w3c-css.png" alt="Valid CSS"></a>
-	</div> <div id="ee1"><img id="pi" src="images/b.jpg"/>
-        <span id="banner"><img src="images/banner.png" alt="banner"><img id="pi" src="images/b.jpg"/></span></div>
+	</div>
+<div id="ee1"><img id="pi" src="images/b.jpg"/>
+        <span id="banner"><img src="images/banner.png" alt="banner"><img id="pi" src="images/b.jpg"/></span>
+        </div>
 </body></html>
