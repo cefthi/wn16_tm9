@@ -53,6 +53,7 @@ dl.OverViewdl  dd > ul{
 }
 div#reviews {
     width: 550px;
+	z-index:2;
 }
 div#reviewsbar{
     background-image: url("images/rbg.png");
@@ -62,6 +63,7 @@ div#reviewsbar{
 img#reviewsbarimg{
     float: left;
     vertical-align: bottom
+	
 }
 div#ee{
     right:20pt;

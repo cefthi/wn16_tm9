@@ -60,6 +60,10 @@ $r=$r."</div>";
         <span id="banner"><img src="images/banner.png" alt="banner"><img id="pi" src="images/b.jpg"/></span></div>
         <h1><?=$title?>( <?= $year?>)</h1> 
         <div id="overall">
+         <div id="reviewsbar">
+                   <img id="reviewsbarimg" src=<?=$p?> alt="overview"> 
+                   <div id="rate"><?=$rating?><span id="inr">% out of <?=$count ?> reviews </span></div>
+                </div>
             <div id="Overview">
                 <img  id="overr" src=<?=$over?>alt="overview">
                 <dl class="OverViewdl">
@@ -67,10 +71,7 @@ $r=$r."</div>";
                 </dl>
             </div>
             <div id="reviews">
-                <div id="reviewsbar">
-                   <img id="reviewsbarimg" src=<?=$p?> alt="overview"> 
-                   <div id="rate"><?=$rating?><span id="inr">% out of <?=$count ?> reviews </span></div>
-                </div>
+               
                 
                    <?=$r?>
                 </div>
@@ -84,8 +85,10 @@ $r=$r."</div>";
             </div> 
             
       <br><br>
-          <br><br>
+       
 
+      <br><br>
+     
         <div id="w3ccheck">
             <a href="http://validator.w3.org/check/referer"><img src="images/w3c-html.png" alt="Valid HTML5"></a> <br>
             <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="images/w3c-css.png" alt="Valid CSS"></a>
